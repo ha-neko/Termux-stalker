@@ -1,0 +1,48 @@
+# ===== GLOBAL =====
+add_newline = false
+command_timeout = 500
+
+format = """
+[$directory]($directory_style)\
+$git_branch\
+$git_status\
+$cmd_duration\
+$status
+$character
+"""
+
+# ===== DIRECTORY =====
+[directory]
+style = "bold #7aa37a"   # dirty zone green
+truncation_length = 3
+truncate_to_repo = true
+format = "[📂 $path]($style) "
+
+# ===== GIT =====
+[git_branch]
+symbol = "☢ "
+style = "bold #c7a600"   # radiation yellow
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold #a36f3a"   # rust brown
+format = "([$all_status]($style)) "
+
+# ===== COMMAND TIME =====
+[cmd_duration]
+min_time = 800
+style = "#8a8a8a"
+format = "[⧗ $duration]($style) "
+
+# ===== ERROR STATUS =====
+[status]
+style = "bold red"
+symbol = "✖"
+format = "[$symbol $status]($style) "
+disabled = false
+
+# ===== PROMPT CHARACTER =====
+[character]
+success_symbol = "[➤](bold #6fa36f)"
+error_symbol = "[➤](bold red)"
+
