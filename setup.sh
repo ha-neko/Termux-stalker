@@ -24,27 +24,23 @@ echo "[+] Installing packages..."
 pkg update -y
 pkg install -y fish starship fastfetch wget unzip
 
-echo "[+] Downloading JetBrains Mono font..."
-FONT_VERSION="2.304"
-FONT_URL="https://github.com/JetBrains/JetBrainsMono/releases/download/v${FONT_VERSION}/JetBrainsMono-${FONT_VERSION}.zip"
+echo "[+] Downloading JetBrains Mono Nerd Font..."
+# Use Nerd Fonts repository instead of JetBrains official
+FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip"
 TEMP_DIR=$(mktemp -d)
 
 cd "$TEMP_DIR"
 wget -q --show-progress "$FONT_URL" -O JetBrainsMono.zip
 
-echo "[+] Extracting font..."
+echo "[+] Extracting Nerd Font..."
 unzip -q JetBrainsMono.zip
 
 # Create fonts directory if it doesn't exist
 mkdir -p ~/.termux/fonts
 
-# Copy only TTF files from the fonts/ttf directory
-if [ -d "fonts/ttf" ]; then
-    cp fonts/ttf/*.ttf ~/.termux/fonts/
-    echo "[+] JetBrains Mono font installed to ~/.termux/fonts/"
-else
-    echo "[!] Warning: fonts/ttf directory not found in zip"
-fi
+# Copy TTF files (Nerd Fonts zip has TTF files in root)
+cp *.ttf ~/.termux/fonts/ 2>/dev/null || echo "[!] Note: Some font files might already exist"
+echo "[+] JetBrains Mono Nerd Font installed to ~/.termux/fonts/"
 
 # Clean up
 cd ~
@@ -56,8 +52,11 @@ chsh -s fish || true
 echo ""
 echo "✔ SETUP COMPLETE"
 echo ""
-echo "📝 Next steps:"
-echo "   1. Restart Termux to enter the Zone ☢️"
+echo "📝 IMPORTANT - Final steps:"
+echo "   1. Restart Termux (close and reopen the app)"
 echo "   2. Long-press on Termux screen → Settings → Font"
-echo "   3. Select 'JetBrains Mono' from the font list"
+echo "   3. Select 'JetBrainsMono Nerd Font' (NOT regular JetBrains Mono)"
+echo "   4. Restart Termux again to see all icons properly"
+echo ""
+echo "   If icons still don't show, see TROUBLESHOOTING.md"
 echo ""
