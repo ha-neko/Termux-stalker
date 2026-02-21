@@ -34,9 +34,10 @@ unzip -q JetBrainsMono.zip
 
 # Clean existing fonts (IMPORTANT)
 rm -f ~/.termux/fonts/*
+rm -f ~/.termux/font.ttf
 
 # Copy ONLY the correct Nerd Font (Regular)
-cp JetBrainsMonoNerdFont-Regular.ttf ~/.termux/fonts/
+cp JetBrainsMonoNerdFont-Regular.ttf ~/.termux/font.ttf
 
 cd ~
 rm -rf "$TEMP_DIR"
