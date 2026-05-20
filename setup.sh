@@ -63,26 +63,33 @@ pkg update -y
 pkg install -y fish starship fastfetch wget unzip
 
 
-echo "[+] Installing JetBrains Mono Nerd Font..."
+# --- NERD FONT CHECK ---
+if [ -f "$HOME/.termux/font.ttf" ]; then
+  echo "[=] JetBrains Mono Nerd Font is already installed. Skipping download..."
+else
+  echo "[+] Installing JetBrains Mono Nerd Font..."
 
-FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip"
-TEMP_DIR="$(mktemp -d)"
+  FONT_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip"
+  TEMP_DIR="$(mktemp -d)"
 
-cd "$TEMP_DIR"
-wget -q --show-progress "$FONT_URL" -O JetBrainsMono.zip
-unzip -q JetBrainsMono.zip
+  cd "$TEMP_DIR"
+  wget -q --show-progress "$FONT_URL" -O JetBrainsMono.zip
+  unzip -q JetBrainsMono.zip
 
-# Clean existing fonts (IMPORTANT)
-rm -f ~/.termux/fonts/*
-rm -f ~/.termux/font.ttf
+  # Clean existing fonts (IMPORTANT)
+  rm -f ~/.termux/fonts/*
+  rm -f ~/.termux/font.ttf
 
-# Copy ONLY the correct Nerd Font (Regular)
-cp JetBrainsMonoNerdFont-Regular.ttf ~/.termux/font.ttf
+  # Copy ONLY the correct Nerd Font (Regular)
+  cp JetBrainsMonoNerdFont-Regular.ttf ~/.termux/font.ttf
 
-cd ~
-rm -rf "$TEMP_DIR"
+  cd ~
+  rm -rf "$TEMP_DIR"
 
-echo "[+] Font installed: JetBrainsMono Nerd Font (Regular)"
+  echo "[+] Font installed: JetBrainsMono Nerd Font (Regular)"
+fi
+# -----------------------
+
 
 # Reload Termux settings (font + colors reload)
 if command -v termux-reload-settings >/dev/null 2>&1; then
